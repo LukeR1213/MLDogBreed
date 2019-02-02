@@ -13,9 +13,13 @@
 		5A4C40662205688E001EAEEE /* Dog_Breeds.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A4C40642205688E001EAEEE /* Dog_Breeds.xcdatamodeld */; };
 		5A4C406822056890001EAEEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A4C406722056890001EAEEE /* Assets.xcassets */; };
 		5A4C406B22056890001EAEEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A4C406922056890001EAEEE /* LaunchScreen.storyboard */; };
+		69A5DD95B82906C293A6C9A9 /* Pods_Dog_Breeds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B9EC7A98BE95A592984D70 /* Pods_Dog_Breeds.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		169E042B32E046F7CE05FB47 /* Pods-Dog Breeds.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dog Breeds.debug.xcconfig"; path = "Target Support Files/Pods-Dog Breeds/Pods-Dog Breeds.debug.xcconfig"; sourceTree = "<group>"; };
+		17B9EC7A98BE95A592984D70 /* Pods_Dog_Breeds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dog_Breeds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		59E58BF7AFA4A26CD7ADA29E /* Pods-Dog Breeds.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dog Breeds.release.xcconfig"; path = "Target Support Files/Pods-Dog Breeds/Pods-Dog Breeds.release.xcconfig"; sourceTree = "<group>"; };
 		5A4C405A2205688E001EAEEE /* Dog Breeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dog Breeds.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A4C405D2205688E001EAEEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A4C405F2205688E001EAEEE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -31,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69A5DD95B82906C293A6C9A9 /* Pods_Dog_Breeds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +47,8 @@
 			children = (
 				5A4C405C2205688E001EAEEE /* Dog Breeds */,
 				5A4C405B2205688E001EAEEE /* Products */,
+				E03F06585AF1F1B7A7B286A3 /* Pods */,
+				67675A1BE280AB31C90DB3B9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +74,24 @@
 			path = "Dog Breeds";
 			sourceTree = "<group>";
 		};
+		67675A1BE280AB31C90DB3B9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				17B9EC7A98BE95A592984D70 /* Pods_Dog_Breeds.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E03F06585AF1F1B7A7B286A3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				169E042B32E046F7CE05FB47 /* Pods-Dog Breeds.debug.xcconfig */,
+				59E58BF7AFA4A26CD7ADA29E /* Pods-Dog Breeds.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +99,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5A4C406F22056890001EAEEE /* Build configuration list for PBXNativeTarget "Dog Breeds" */;
 			buildPhases = (
+				02DC0830ECFCC01E992BB6DA /* [CP] Check Pods Manifest.lock */,
 				5A4C40562205688E001EAEEE /* Sources */,
 				5A4C40572205688E001EAEEE /* Frameworks */,
 				5A4C40582205688E001EAEEE /* Resources */,
+				D030AFE6DE16A5021CF91974 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -132,6 +159,53 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		02DC0830ECFCC01E992BB6DA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Dog Breeds-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D030AFE6DE16A5021CF91974 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Dog Breeds/Pods-Dog Breeds-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwipeableTabBarController/SwipeableTabBarController.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeableTabBarController.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dog Breeds/Pods-Dog Breeds-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5A4C40562205688E001EAEEE /* Sources */ = {
@@ -284,6 +358,7 @@
 		};
 		5A4C407022056890001EAEEE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 169E042B32E046F7CE05FB47 /* Pods-Dog Breeds.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -302,6 +377,7 @@
 		};
 		5A4C407122056890001EAEEE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59E58BF7AFA4A26CD7ADA29E /* Pods-Dog Breeds.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
