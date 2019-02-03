@@ -1,16 +1,32 @@
 PODS:
+  - Fusuma (1.3.1)
+  - RLBAlertsPickers (1.1.2)
+  - SwiftSH (0.1.2):
+    - SwiftSH/Libssh2 (= 0.1.2)
+  - SwiftSH/Core (0.1.2)
+  - SwiftSH/Libssh2 (0.1.2):
+    - SwiftSH/Core
   - SwipeableTabBarController (1.3.2)
 
 DEPENDENCIES:
+  - Fusuma
+  - RLBAlertsPickers
+  - SwiftSH
   - SwipeableTabBarController
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Fusuma
+    - RLBAlertsPickers
+    - SwiftSH
     - SwipeableTabBarController
 
 SPEC CHECKSUMS:
+  Fusuma: 2c39605534fa999d1d54c30a575272b31326f416
+  RLBAlertsPickers: 2548943b0cb16620904cbd926a645362d1b43963
+  SwiftSH: 5d3c95b23093106d18c527ce9c175a5733e3e86e
   SwipeableTabBarController: 6dd4ea7ec0a432bc2b40e8e6484377772e2cc7c1
 
-PODFILE CHECKSUM: b5d4a01ea044f7024c064f0d14d7981c53fe5f8b
+PODFILE CHECKSUM: 056644e4d7f659304f425d9175ef7f5afde806a4
 
 COCOAPODS: 1.6.0.beta.1

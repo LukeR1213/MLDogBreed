@@ -8,5 +8,7 @@ target 'Dog Breeds' do
   # Pods for Dog Breeds
   
   pod "SwipeableTabBarController"
-
+  pod "RLBAlertsPickers"
+  pod 'Fusuma'
+  pod 'SwiftSH'
 end

@@ -13,6 +13,9 @@
 		5A4C40662205688E001EAEEE /* Dog_Breeds.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A4C40642205688E001EAEEE /* Dog_Breeds.xcdatamodeld */; };
 		5A4C406822056890001EAEEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A4C406722056890001EAEEE /* Assets.xcassets */; };
 		5A4C406B22056890001EAEEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A4C406922056890001EAEEE /* LaunchScreen.storyboard */; };
+		5AA3FFA822056FE40065C0FA /* identifiedDogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA3FFA722056FE40065C0FA /* identifiedDogs.swift */; };
+		5AA3FFAA220572450065C0FA /* identifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA3FFA9220572450065C0FA /* identifyView.swift */; };
+		5ACA8ED52205EC120055376A /* pubDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA8ED42205EC120055376A /* pubDataSet.swift */; };
 		69A5DD95B82906C293A6C9A9 /* Pods_Dog_Breeds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B9EC7A98BE95A592984D70 /* Pods_Dog_Breeds.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +31,9 @@
 		5A4C406722056890001EAEEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A4C406A22056890001EAEEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A4C406C22056890001EAEEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5AA3FFA722056FE40065C0FA /* identifiedDogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = identifiedDogs.swift; sourceTree = "<group>"; };
+		5AA3FFA9220572450065C0FA /* identifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = identifyView.swift; sourceTree = "<group>"; };
+		5ACA8ED42205EC120055376A /* pubDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pubDataSet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,8 +69,11 @@
 		5A4C405C2205688E001EAEEE /* Dog Breeds */ = {
 			isa = PBXGroup;
 			children = (
+				5ACA8ED42205EC120055376A /* pubDataSet.swift */,
 				5A4C405D2205688E001EAEEE /* AppDelegate.swift */,
 				5A4C405F2205688E001EAEEE /* ViewController.swift */,
+				5AA3FFA9220572450065C0FA /* identifyView.swift */,
+				5AA3FFA722056FE40065C0FA /* identifiedDogs.swift */,
 				5A4C40612205688E001EAEEE /* Main.storyboard */,
 				5A4C406722056890001EAEEE /* Assets.xcassets */,
 				5A4C406922056890001EAEEE /* LaunchScreen.storyboard */,
@@ -88,7 +97,6 @@
 				169E042B32E046F7CE05FB47 /* Pods-Dog Breeds.debug.xcconfig */,
 				59E58BF7AFA4A26CD7ADA29E /* Pods-Dog Breeds.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -192,12 +200,18 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Dog Breeds/Pods-Dog Breeds-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Fusuma/Fusuma.framework",
+				"${BUILT_PRODUCTS_DIR}/RLBAlertsPickers/RLBAlertsPickers.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftSH/SwiftSH.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeableTabBarController/SwipeableTabBarController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Fusuma.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RLBAlertsPickers.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSH.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeableTabBarController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -213,8 +227,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A4C40602205688E001EAEEE /* ViewController.swift in Sources */,
+				5ACA8ED52205EC120055376A /* pubDataSet.swift in Sources */,
+				5AA3FFA822056FE40065C0FA /* identifiedDogs.swift in Sources */,
 				5A4C40662205688E001EAEEE /* Dog_Breeds.xcdatamodeld in Sources */,
 				5A4C405E2205688E001EAEEE /* AppDelegate.swift in Sources */,
+				5AA3FFAA220572450065C0FA /* identifyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +381,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7KQ5T899E2;
 				INFOPLIST_FILE = "Dog Breeds/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -383,6 +401,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7KQ5T899E2;
 				INFOPLIST_FILE = "Dog Breeds/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

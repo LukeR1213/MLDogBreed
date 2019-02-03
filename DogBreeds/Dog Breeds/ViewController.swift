@@ -7,13 +7,22 @@
 //
 
 import UIKit
-
-class ViewController: UIViewController {
+import SwipeableTabBarController
+class ViewController: SwipeableTabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.blue
+        let firstViewController = identifiedDogs()
+        firstViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+        
+        let secondViewController = identifyView()
+        secondViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 1)
+        
+        let tabBarList = [firstViewController, secondViewController]
+        viewControllers = tabBarList
+        
+        selectedViewController = viewControllers![0]
     }
 
 
