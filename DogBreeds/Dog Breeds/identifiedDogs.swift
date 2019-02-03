@@ -11,6 +11,8 @@ import RLBAlertsPickers
 import Fusuma
 import SwiftSH
 import Foundation
+
+
 class identifiedDogs: UIViewController, FusumaDelegate, SSHViewController {
 
     public var pubDogImage: UIImage?
@@ -18,9 +20,10 @@ class identifiedDogs: UIViewController, FusumaDelegate, SSHViewController {
     var imageUrl: UILabel?
     
     var shell: Shell!
+    var isCurrentlySelected: String? = ""
     var authenticationChallenge: AuthenticationChallenge?
     var semaphore: DispatchSemaphore!
-    var lastCommand = ""
+    var lastCommand: String! =  "cd /home/pi/html/.QHacks\n"
     var textBuff: [String] = []
     
     var requiresAuthentication = true
@@ -63,6 +66,10 @@ class identifiedDogs: UIViewController, FusumaDelegate, SSHViewController {
         takeFromLib.layer.cornerRadius = 15
         self.view.addSubview(takeFromLib)
         
+        //self.textView.text = ""
+        //self.textView.isEditable = false
+        // self.textView.isSelectable = false
+        
         if self.requiresAuthentication {
             if let password = self.password {
                 self.authenticationChallenge = .byPassword(username: self.username, password: password)
@@ -70,6 +77,7 @@ class identifiedDogs: UIViewController, FusumaDelegate, SSHViewController {
                 self.authenticationChallenge = .byKeyboardInteractive(username: self.username) { [unowned self] challenge in
                     DispatchQueue.main.async {
                         self.appendToTextView(challenge)
+                        //self.textView.isEditable = true
                     }
                     
                     self.semaphore = DispatchSemaphore(value: 0)
@@ -81,7 +89,7 @@ class identifiedDogs: UIViewController, FusumaDelegate, SSHViewController {
             }
         }
         
-        self.shell = Shell(host: self.hostname!, port: self.port!, terminal: "vanilla")
+        self.shell = Shell(host: self.hostname, port: self.port ?? 22, terminal: "vanilla")
 
     /*
     // MARK: - Navigationa
@@ -116,9 +124,9 @@ class identifiedDogs: UIViewController, FusumaDelegate, SSHViewController {
     func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
         switch source {
         case .camera:
-            print("Image captured from Camera")
+            print("cam selc")
         case .library:
-            print("Image selected from Camera Roll")
+            print("img selc")
         default:
             print("Image selected")
         }
@@ -160,9 +168,48 @@ class identifiedDogs: UIViewController, FusumaDelegate, SSHViewController {
     func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
         switch source {
         case .camera:
-            performCommand(cv: "sudo touch /home/pi/html/newtestingData.txt")
+            isCurrentlySelected! = image.toBase64()!
         case .library:
-            performCommand(cv: "sudo touch /home/pi/html/newtestingData.txt")
+           isCurrentlySelected! = image.toBase64()!
+           
+           
+           let fileName = "myFileName.txt"
+           var filePath = ""
+           
+           // Fine documents directory on device
+           let dirs:[String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
+           
+           if (dirs.count > 0) {
+            let dir = dirs[0] //documents directory
+            filePath = dir.appending("/" + fileName)
+            print("Local path = \(filePath)")
+           } else {
+            print("Could not find local directory to store file")
+            return
+           }
+           
+           // Set the contents
+           let fileContentToWrite = isCurrentlySelected!
+           
+           do {
+            // Write contents to file
+            try fileContentToWrite.write(toFile: filePath, atomically: false, encoding: String.Encoding.utf8)
+           }
+           catch let error as NSError {
+            print("An error took place: \(error)")
+           }
+            
+            var ranID: String = UUID().uuidString
+            connect()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.performCommand()
+                /*
+  && python imageConverter.py \(self.isCurrentlySelected) \(ranID) && cd dogMLModel && python3 -m src.inference.ModelML file ../\(ranID)/\(ranID).jpg && cd ../\n*/
+                //Scrapers Here
+                print(filePath)
+                self.lastCommand = "python3 imageConverter.py \(filePath) \(ranID) \n"
+                self.performCommand()
+            }
         default:
             print("Called just after dismissed FusumaViewController")
         }
@@ -211,20 +258,14 @@ class identifiedDogs: UIViewController, FusumaDelegate, SSHViewController {
         self.imageView?.layer.cornerRadius = 15
         present(fusuma, animated: true, completion: nil)
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        self.connect()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
+    /*override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         self.disconnect()
-    }
+    }*/
     
     func connect() {
-        self.shell!
+        self.shell
             .withCallback { [unowned self] (string: String?, error: String?) in
                 DispatchQueue.main.async {
                     if let string = string {
@@ -237,12 +278,12 @@ class identifiedDogs: UIViewController, FusumaDelegate, SSHViewController {
             }
             .connect()
             .authenticate(self.authenticationChallenge)
-            .open { (error) in
+            .open { [unowned self] (error) in
                 if let error = error {
-                    print("[ERROR] \(error)")
-                    
+                    self.appendToTextView("[ERROR] \(error)")
+                    //self.textView.isEditable = false
                 } else {
-                    print("No connection error.")
+                   // self.textView.isEditable = true
                 }
         }
     }
@@ -257,15 +298,15 @@ class identifiedDogs: UIViewController, FusumaDelegate, SSHViewController {
         textBuff.append(text)
     }
     
-    func performCommand(cv: String) {
-        print("yolo1")
+    func performCommand() {
         if let semaphore = self.semaphore {
+            self.password = self.lastCommand.trimmingCharacters(in: .newlines)
             semaphore.signal()
         } else {
-            print("Last command is '\(cv)'")
-            self.shell.write(cv) { [unowned self] (error) in
+            //print("Last command is '\(self.lastCommand)'")
+            self.shell.write(self.lastCommand) { [unowned self] (error) in
                 if let error = error {
-                    print("[ERROR] \(error)")
+                    self.appendToTextView("[ERROR] \(error)")
                 }
             }
         }
@@ -279,7 +320,7 @@ class identifiedDogs: UIViewController, FusumaDelegate, SSHViewController {
 extension identifiedDogs: UITextViewDelegate {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        
+        //self.textView.resignFirstResponder()
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -297,13 +338,14 @@ extension identifiedDogs: UITextViewDelegate {
         self.lastCommand.append(text)
         
         if text == "\n" {
-            self.performCommand(cv: "sudo touch /home/pi/html/newstestingData.txt")
+            self.performCommand()
         }
         
         return true
     }
     
 }
+
 
 protocol SSHViewController: class {
     
@@ -313,4 +355,10 @@ protocol SSHViewController: class {
     var username: String! { get set }
     var password: String? { get set }
     
+}
+extension UIImage {
+    func toBase64() -> String? {
+        guard let imageData = self.pngData() else { return nil }
+        return imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
+    }
 }
